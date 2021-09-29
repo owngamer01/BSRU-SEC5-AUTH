@@ -39,9 +39,9 @@ class _LoginPageState extends State<LoginPage> {
                     // # สร้าง ตัวช่วยในการตรวจสอบข้อมูล สำหรับ Form
                     validator: (String? message) {
 
-                      // # กำหนดเงือนไขถ้า input มีค่าน้อยกว่า 5 ตัวอักษรจะให้แสดง error ตามข้อความต่อไปนี้
+                      // # กำหนดเงือนไขถ้า input มีค่าน้อยกว่า 5 ตัวอักษร จะให้แสดง error ตามข้อความต่อไปนี้
                       return message == null || message.length < 5 ? "ต้องใส่มากกว่า 5 ตัวอักษร" : null;
-                      
+
                     },
                     controller: userController,
                     decoration: InputDecoration(

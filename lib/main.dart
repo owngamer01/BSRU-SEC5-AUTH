@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/auth/login_page.dart';
 import 'package:myapp/auth/register_page.dart';
+import 'package:myapp/home/home_page.dart';
 import 'package:myapp/splash_screen_page.dart';
 
 void main() {
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
       routes: {
         SplashScreenPage.page: (_) => const SplashScreenPage(),
         LoginPage.page: (_) => const LoginPage(),
-        RegisterPage.page: (_) => const RegisterPage()
+        RegisterPage.page: (_) => const RegisterPage(),
+        HomePage.page: (_) => const HomePage()
       }
     );
   }

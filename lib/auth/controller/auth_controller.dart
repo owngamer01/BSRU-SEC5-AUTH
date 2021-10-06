@@ -11,6 +11,19 @@ class AuthController {
   final users = FirebaseFirestore.instance.collection('users');
   final refImage = firebase_storage.FirebaseStorage.instance.ref('users');
 
+  void onLogin(String email, String password) async {
+    try {
+
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email, 
+        password: password
+      );
+
+    } catch (e) {
+      print(e);
+    }
+  }
+
   void onRegister(UserModel userModel) async {
     try {
 
@@ -43,5 +56,9 @@ class AuthController {
     } catch (e) {
       print(e);
     }
+  }
+
+  void signOut() {
+    FirebaseAuth.instance.signOut();
   }
 }

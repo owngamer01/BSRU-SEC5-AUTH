@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/auth/controller/auth_controller.dart';
 import 'package:myapp/auth/register_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -12,15 +13,31 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
+  final AuthController authController = AuthController();
+
   // # สร้าง formkey เพื่อ ผูกค่ากับ Form widget ในการ validate ข้อมูลใน Form
   final GlobalKey formkey = GlobalKey<FormState>();
 
   final userController = TextEditingController();
   final passController = TextEditingController();
 
+  void onLogin() {
+    authController.onLogin(
+      userController.text, 
+      passController.text
+    );
+  }
+
   void toRegister() {
     // # เปลี่ยนหน้าจาก login ไปยัง register
     Navigator.pushNamed(context, RegisterPage.page);
+  }
+
+  @override
+  void dispose() {
+    userController.dispose();
+    passController.dispose();
+    super.dispose();
   }
 
   @override
@@ -63,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {}, 
+                onPressed: onLogin, 
                 child: Text("Login")
               )
             ),

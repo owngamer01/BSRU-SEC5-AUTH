@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/auth/login_page.dart';
+import 'package:myapp/home/home_page.dart';
 
 class SplashScreenPage extends StatefulWidget {
   static const String page = "splashscreen";
@@ -16,11 +18,20 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
 
     await Firebase.initializeApp();
 
-    // # หน่วง 1 วินาที (ต้องใช้ async/await ด้วยนะ)
-    await Future.delayed(const Duration(seconds: 1));
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
 
-    // # เปลี่ยนหน้าไปยัง login
-    Navigator.pushNamed(context, LoginPage.page);
+      Navigator.popUntil(context, ModalRoute.withName(SplashScreenPage.page));
+
+      // # ถ้ามีการ Login
+      if (user != null) {
+        Navigator.pushNamed(context, HomePage.page);
+      }
+      // # ถ้า Logout
+      else {
+        Navigator.pushNamed(context, LoginPage.page);
+      }
+
+    });
     
   }
 

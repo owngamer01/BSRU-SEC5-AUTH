@@ -4,6 +4,7 @@ import 'package:myapp/auth/register_page.dart';
 import 'package:myapp/splash_screen_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

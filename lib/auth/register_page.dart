@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:myapp/auth/controller/auth_controller.dart';
+import 'package:myapp/auth/model/user_model.dart';
 
 class RegisterPage extends StatefulWidget {
 
@@ -14,6 +16,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   
+  final AuthController authController = AuthController();
   final ImagePicker _picker = ImagePicker();
 
   // # สร้าง controller เพื่อเก็บค่าของ input
@@ -31,6 +34,21 @@ class _RegisterPageState extends State<RegisterPage> {
     if (file == null) return;
 
     setState(() {});
+  }
+
+  void _onRegister() {
+
+    if (file == null) return;
+
+    UserModel userModel = UserModel(
+      age: num.parse(ageController.text),
+      fullname: fullnameController.text,
+      username: userController.text,
+      password: passController.text,
+      avatarPath: file!.path
+    );
+
+    authController.onRegister(userModel);
   }
 
   @override
@@ -87,7 +105,13 @@ class _RegisterPageState extends State<RegisterPage> {
                 hintText: "Age",
                 label: Text("Age")
               ),
+            ),
+
+            ElevatedButton(
+              onPressed: _onRegister, 
+              child: Text("Register")
             )
+
           ]
         ),
       )

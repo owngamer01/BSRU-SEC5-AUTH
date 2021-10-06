@@ -55,64 +55,67 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
 
-            Center(
-              child: InkWell(
-                onTap: takePicture,
-                child: Container(
-                  width: 250,
-                  height: 250,
-                  decoration: BoxDecoration(
-                    color: Colors.black12,
-                    image: file != null ? DecorationImage(
-                      image: FileImage(File(file!.path)),
-                      fit: BoxFit.cover
-                    ) : null
+              Center(
+                child: InkWell(
+                  onTap: takePicture,
+                  child: Container(
+                    width: 250,
+                    height: 250,
+                    decoration: BoxDecoration(
+                      color: Colors.black12,
+                      image: file != null ? DecorationImage(
+                        image: FileImage(File(file!.path)),
+                        fit: BoxFit.cover
+                      ) : null
+                    ),
+                    alignment: Alignment.center,
+                    child: Text(file == null ? "UPLOAD AVATAR" : ""),
                   ),
-                  alignment: Alignment.center,
-                  child: Text(file == null ? "UPLOAD AVATAR" : ""),
+                )
+              ),
+
+              TextField(
+                controller: userController,
+                decoration: InputDecoration(
+                  hintText: "Username",
+                  label: Text("Username")
                 ),
+              ),
+              TextField(
+                obscureText: true,
+                controller: passController,
+                decoration: InputDecoration(
+                  hintText: "Password",
+                  label: Text("Password")
+                )
+              ),
+              TextField(
+                controller: fullnameController,
+                decoration: InputDecoration(
+                  hintText: "Fullname",
+                  label: Text("Fullname")
+                ),
+              ),
+              TextField(
+                keyboardType: TextInputType.number,
+                controller: ageController,
+                decoration: InputDecoration(
+                  hintText: "Age",
+                  label: Text("Age")
+                ),
+              ),
+
+              ElevatedButton(
+                onPressed: _onRegister, 
+                child: Text("Register")
               )
-            ),
 
-            TextField(
-              controller: userController,
-              decoration: InputDecoration(
-                hintText: "Username",
-                label: Text("Username")
-              ),
-            ),
-            TextField(
-              controller: passController,
-              decoration: InputDecoration(
-                hintText: "Password",
-                label: Text("Password")
-              ),
-            ),
-            TextField(
-              controller: fullnameController,
-              decoration: InputDecoration(
-                hintText: "Fullname",
-                label: Text("Fullname")
-              ),
-            ),
-            TextField(
-              keyboardType: TextInputType.number,
-              controller: ageController,
-              decoration: InputDecoration(
-                hintText: "Age",
-                label: Text("Age")
-              ),
-            ),
-
-            ElevatedButton(
-              onPressed: _onRegister, 
-              child: Text("Register")
-            )
-
-          ]
+            ]
+          ),
         ),
       )
     );

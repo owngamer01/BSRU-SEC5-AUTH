@@ -19,6 +19,8 @@ class AuthController {
         password: password
       );
 
+      
+
     } catch (e) {
       print(e);
     }

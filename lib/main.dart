@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:myapp/auth/login_page.dart';
 import 'package:myapp/auth/register_page.dart';
 import 'package:myapp/home/home_page.dart';
+import 'package:myapp/home/item_detail_page.dart';
+import 'package:myapp/home/model/food_model.dart';
+import 'package:myapp/home/more_page.dart';
 import 'package:myapp/splash_screen_page.dart';
 
 void main() {
@@ -29,7 +32,24 @@ class MyApp extends StatelessWidget {
         LoginPage.page: (_) => const LoginPage(),
         RegisterPage.page: (_) => const RegisterPage(),
         HomePage.page: (_) => const HomePage()
-      }
+      },
+      
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case MorePage.page:
+            final foodItem = settings.arguments as FoodGroup;
+            return MaterialPageRoute(
+              builder: (context) => MorePage(foodItem) 
+            );
+          case ItemDetailPage.page:
+            final foodItem = settings.arguments as FoodItem;
+            return MaterialPageRoute(
+              builder: (context) => ItemDetailPage(foodItem) 
+            );
+          default:
+        }
+      },
+
     );
   }
 }

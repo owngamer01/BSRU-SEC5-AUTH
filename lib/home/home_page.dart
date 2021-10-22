@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:myapp/auth/controller/auth_controller.dart';
-import 'package:myapp/home/item_detail_page.dart';
+import 'package:myapp/controller/cart_controller.dart';
+import 'package:myapp/item/item_detail_page.dart';
 import 'package:myapp/home/model/food_model.dart';
-import 'package:myapp/home/more_page.dart';
+import 'package:myapp/item/more_page.dart';
+import 'package:badges/badges.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -16,7 +19,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  final cartController = Get.find<CartController>();
   final AuthController authController = AuthController();
+  int currrentIndex = 0;
+
+  late final pages = [
+    homePage(foodGroup), 
+    cartPage()
+  ];
 
   void _toMorePage(FoodGroup foodGroup) {
     Navigator.pushNamed(context, MorePage.page, arguments: foodGroup);
@@ -26,10 +36,13 @@ class _HomePageState extends State<HomePage> {
     Navigator.pushNamed(context, ItemDetailPage.page, arguments: foodItem);
   }
 
-  @override
-  Widget build(BuildContext context) {
+  void _onBottomBarTap(int index) {
+    setState(() {
+      currrentIndex = index;
+    });
+  }
 
-    final List<FoodGroup> foodGroup = [
+  final List<FoodGroup> foodGroup = [
       FoodGroup(
         name: "Group 1",
         list: [
@@ -132,71 +145,102 @@ class _HomePageState extends State<HomePage> {
       )
     ];
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: Container(),
         leadingWidth: 0,
-        title: Text("Food BSRU App"),
-        actions: [
-          IconButton(
-            onPressed: () {}, 
-            icon: Icon(Icons.shopping_cart)
-          )
-        ],
+        title: const Text("Food BSRU App")
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: Text("List of menus", style: TextStyle(
-              fontSize: 24
-            )),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currrentIndex,
+        onTap: _onBottomBarTap,
+        items: [
+          const BottomNavigationBarItem(
+            label: "Home",
+            icon: Icon(Icons.home)
           ),
-
-          ...foodGroup.map((group) => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(group.name),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      _toMorePage(group);
-                    },
-                    child: Text("More")
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 100,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: group.list.length,
-                  itemBuilder: (context, index) {
-                    final item = group.list[index];
-                    return InkWell(
-                      onTap: () {
-                        _toItemDetailPage(item);
-                      },
-                      child: Container(
-                        width: 100,
-                        margin: const EdgeInsets.only(right: 5),
-                        child: Image.network(item.image, fit: BoxFit.cover)
-                      ),
-                    );
-                  },
-                ),
-              )
-            ]
-          ))
+          BottomNavigationBarItem(
+            label: "Cart",
+            icon: Badge(
+              badgeContent: Obx(() => Text(cartController.cart.length.toString())),
+              child: const Icon(Icons.shopping_cart)
+            )
+          )
         ]
-      )
+      ),
+      body: pages[currrentIndex]
     );
   }
+
+  Widget cartPage() => Obx(() => 
+    ListView.builder(
+      itemCount: cartController.cart.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text(cartController.cart[index].name),
+          subtitle: Text(cartController.cart[index].detail),
+          leading: CircleAvatar(
+            backgroundImage: NetworkImage(cartController.cart[index].image),
+          ),
+        );
+      },
+    )
+  );
+
+
+  Widget homePage(List<FoodGroup> foodGroup) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+
+      const Padding(
+        padding: EdgeInsets.all(15),
+        child: Text("List of menus", style: TextStyle(
+          fontSize: 24
+        )),
+      ),
+
+      ...foodGroup.map((group) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(group.name),
+              ),
+              TextButton(
+                onPressed: () {
+                  _toMorePage(group);
+                },
+                child: const Text("More")
+              )
+            ],
+          ),
+          SizedBox(
+            height: 100,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: group.list.length,
+              itemBuilder: (context, index) {
+                final item = group.list[index];
+                return InkWell(
+                  onTap: () {
+                    _toItemDetailPage(item);
+                  },
+                  child: Container(
+                    width: 100,
+                    margin: const EdgeInsets.only(right: 5),
+                    child: Image.network(item.image, fit: BoxFit.cover)
+                  ),
+                );
+              },
+            ),
+          )
+        ]
+      )).toList()
+    ]
+  );
 }

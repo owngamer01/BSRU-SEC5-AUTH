@@ -1,15 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:myapp/auth/login_page.dart';
 import 'package:myapp/auth/register_page.dart';
+import 'package:myapp/controller/cart_controller.dart';
 import 'package:myapp/home/home_page.dart';
-import 'package:myapp/home/item_detail_page.dart';
+import 'package:myapp/item/item_detail_page.dart';
 import 'package:myapp/home/model/food_model.dart';
-import 'package:myapp/home/more_page.dart';
+import 'package:myapp/item/more_page.dart';
 import 'package:myapp/splash_screen_page.dart';
+import 'package:device_preview/device_preview.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
+  Get.put(CartController());
+
   runApp(const MyApp());
+
+  // runApp(
+  //   DevicePreview(
+  //     enabled: false,
+  //     builder: (context) => const MyApp(), // Wrap your app
+  //   ),
+  // );
 }
 
 class MyApp extends StatelessWidget {
@@ -22,6 +35,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+
+      locale: DevicePreview.locale(context), // Add the locale here
+      builder: DevicePreview.appBuilder, // Add the builder here
 
       // # หน้าแรกที่จะให้ app แสดง
       initialRoute: SplashScreenPage.page,

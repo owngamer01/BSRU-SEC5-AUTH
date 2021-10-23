@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/item/item_detail_page.dart';
+import 'package:myapp/home/item_detail_page.dart';
 import 'package:myapp/home/model/food_model.dart';
 
 class MorePage extends StatelessWidget {

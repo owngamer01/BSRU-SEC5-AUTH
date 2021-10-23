@@ -5,9 +5,7 @@ import 'package:myapp/auth/controller/auth_controller.dart';
 import 'package:myapp/controller/cart_controller.dart';
 import 'package:myapp/home/home_one.dart';
 import 'package:myapp/home/home_two.dart';
-import 'package:myapp/home/item_detail_page.dart';
 import 'package:myapp/home/model/food_model.dart';
-import 'package:myapp/home/more_page.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -23,6 +21,7 @@ class _HomePageState extends State<HomePage> {
 
   final cartController = Get.find<CartController>();
   final AuthController authController = AuthController();
+  int currrentIndex = 0;
 
   int currentIndex = 0;
   late final pages = [
@@ -133,9 +132,14 @@ class _HomePageState extends State<HomePage> {
     )
   ];
 
+  void _onBottomBarTap(int index) {
+    setState(() {
+      currrentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         leading: Container(),

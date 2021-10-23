@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/home/item_detail_page.dart';
 import 'package:myapp/home/model/food_model.dart';
 import 'package:myapp/home/more_page.dart';
+import 'package:myapp/home/more_page.dart';
 
 class HomeOne extends StatefulWidget {
 

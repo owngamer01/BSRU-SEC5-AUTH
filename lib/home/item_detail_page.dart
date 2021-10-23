@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:myapp/controller/cart_controller.dart';
 import 'package:myapp/home/model/food_model.dart';
+import 'package:badges/badges.dart';
 
 class ItemDetailPage extends StatefulWidget {
 
@@ -14,13 +17,29 @@ class ItemDetailPage extends StatefulWidget {
 }
 
 class _ItemDetailPageState extends State<ItemDetailPage> {
+
+  final cartController = Get.find<CartController>();
+
+  void _addtoCart() {
+    cartController.addCart(widget.foodItem);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.foodItem.name),
+        actions: [
+          IconButton(
+            onPressed: _addtoCart, 
+            icon: Badge(
+              badgeContent: Obx(() => Text(cartController.cart.length.toString())),
+              child: Icon(Icons.shopping_cart),
+            )
+          )
+        ],
       ),
-      body: Container(
+      body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -34,11 +53,11 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
 
             // # ข้อความรายละเอียด
             Padding(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("รายละเอียด", style: TextStyle(
+                  const Text("รายละเอียด", style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold
                   )),
@@ -46,20 +65,20 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                 ]
               )
             ),
-
-            // # ปุ่มเพิ่มสินค้า
+            
             Expanded(child: Container()),
 
+            // # ปุ่มเพิ่มสินค้า
             Container(
               width: double.infinity,
               margin: EdgeInsets.symmetric(horizontal: 10),
               child: ElevatedButton(
-                onPressed: () {}, 
+                onPressed: _addtoCart, 
                 child: Text("Add to cart")
               ),
-            )
+            ),
           ]
-        )
+        ),
       ),
     );
   }

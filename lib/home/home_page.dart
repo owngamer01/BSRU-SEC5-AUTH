@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
   late final pages = [
     HomeOne(foodGroup),
-    HomeTwo()
+    const HomeTwo()
   ];
 
   final List<FoodGroup> foodGroup = [
@@ -131,12 +131,6 @@ class _HomePageState extends State<HomePage> {
       ]
     )
   ];
-
-  void _onBottomBarTap(int index) {
-    setState(() {
-      currrentIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

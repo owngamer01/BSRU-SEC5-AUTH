@@ -34,7 +34,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
             onPressed: _addtoCart, 
             icon: Badge(
               badgeContent: Obx(() => Text(cartController.cart.length.toString())),
-              child: Icon(Icons.shopping_cart),
+              child: const Icon(Icons.shopping_cart),
             )
           )
         ],
@@ -71,10 +71,10 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
             // # ปุ่มเพิ่มสินค้า
             Container(
               width: double.infinity,
-              margin: EdgeInsets.symmetric(horizontal: 10),
+              margin: const EdgeInsets.symmetric(horizontal: 10),
               child: ElevatedButton(
                 onPressed: _addtoCart, 
-                child: Text("Add to cart")
+                child: const Text("Add to cart")
               ),
             ),
           ]

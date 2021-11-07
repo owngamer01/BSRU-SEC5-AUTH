@@ -61,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
 
                     },
                     controller: userController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Username",
                       label: Text("Username")
                     ),
@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                   TextFormField(
                     controller: passController,
                     obscureText: true,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Password",
                       label: Text("Password")
                     ),
@@ -81,14 +81,14 @@ class _LoginPageState extends State<LoginPage> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: onLogin, 
-                child: Text("Login")
+                child: const Text("Login")
               )
             ),
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: toRegister, 
-                child: Text("Register")
+                child: const Text("Register")
               ),
             )
           ]

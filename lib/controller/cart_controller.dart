@@ -10,7 +10,5 @@ class CartController extends GetxController {
     _cart.add(foodItem);
 
     // # add to firestore
-    
-
   }
 }

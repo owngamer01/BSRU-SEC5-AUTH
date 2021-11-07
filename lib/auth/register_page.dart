@@ -80,7 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
               TextField(
                 controller: userController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "Username",
                   label: Text("Username")
                 ),
@@ -88,14 +88,14 @@ class _RegisterPageState extends State<RegisterPage> {
               TextField(
                 obscureText: true,
                 controller: passController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "Password",
                   label: Text("Password")
                 )
               ),
               TextField(
                 controller: fullnameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "Fullname",
                   label: Text("Fullname")
                 ),
@@ -103,7 +103,7 @@ class _RegisterPageState extends State<RegisterPage> {
               TextField(
                 keyboardType: TextInputType.number,
                 controller: ageController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "Age",
                   label: Text("Age")
                 ),
@@ -111,7 +111,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
               ElevatedButton(
                 onPressed: _onRegister, 
-                child: Text("Register")
+                child: const Text("Register")
               )
 
             ]

@@ -36,7 +36,8 @@ class CartController extends GetxController {
     if (!AuthController.isHasUser) return;
 
     // # ถ้ามีในตระกร้าแล้ว
-    final cartIndex = _cart.indexOf(foodItem);
+    final cartIndex = _cart.indexWhere((x) => x.id == foodItem.id);
+
     if(cartIndex != -1) {
 
       // ให้เพิ่มสินค้าเดิม +1 (local)

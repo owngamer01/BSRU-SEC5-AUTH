@@ -14,7 +14,7 @@ class CartPage extends StatelessWidget {
       itemCount: cartController.cart.length,
       itemBuilder: (context, index) => ListTile(
         title: Text(cartController.cart[index].name),
-        subtitle: Text(cartController.cart[index].detail + " ${cartController.cart[index].amount} bath ${cartController.cart[index].price}"),
+        subtitle: Text("${cartController.cart[index].price} bath (${cartController.cart[index].amount}x)"),
         leading: CircleAvatar(
           backgroundImage: NetworkImage(cartController.cart[index].image),
         ),

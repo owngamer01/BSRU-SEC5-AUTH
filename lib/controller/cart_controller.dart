@@ -17,24 +17,22 @@ class CartController extends GetxController {
 
     _cart = <FoodItem>[].obs;
 
+    // # ดึงสินค้าจากตระกร้าใน (firestore)
     final allFoodInCart = await _fireCarts.doc(FirebaseAuth.instance.currentUser!.uid)
       .collection(_collection)
       .get();
     
+    // # แปลงข้อมูล JSON เป็น Data class FoodItem
     final foodList = allFoodInCart.docs.map((snapshot) => FoodItem.fromJson(
       snapshot.data()
     )).toList();
 
+     // # เพิ่ม FoodItemทั้งหมด ลงตระกร้า (local)
     _cart.addAll(foodList);
   }
 
   void addCart(FoodItem foodItem) {
 
-    // DocumentReference<Map<String, dynamic>> getDocfood(FoodItem foodItem) {
-    // return _fireCarts.doc(FirebaseAuth.instance.currentUser!.uid)
-    //   .collection(_collection)
-    //   .doc(foodItem.id); 
-    
     if (!AuthController.isHasUser) return;
 
     // # ถ้ามีในตระกร้าแล้ว
@@ -49,18 +47,19 @@ class CartController extends GetxController {
 
     } else {
 
-      // # add carts local
+      // # เพิ่มสินค้าใหม่ +1 (local)
       _cart.add(foodItem);
 
-      // # add carts firestore
+      // # เพิ่มสินค้าใหม่ +1 (firestore)
       getDocfood(foodItem).set(foodItem.toJson());
     }
   }
 
   void removeCartItem(FoodItem foodItem) {
+    // # ลบสินค้าออก -1 (local)
     _cart.remove(foodItem);
 
-    // # add carts firestore
+    // # ลบสินค้าออก -1 (firestore)
     getDocfood(foodItem).delete();
   }
 

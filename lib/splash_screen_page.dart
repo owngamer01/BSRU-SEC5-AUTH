@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:myapp/auth/login_page.dart';
+import 'package:myapp/controller/cart_controller.dart';
+import 'package:myapp/controller/product_controller.dart';
 import 'package:myapp/home/home_page.dart';
 
 class SplashScreenPage extends StatefulWidget {
@@ -17,6 +20,12 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   void init() async {
 
     await Firebase.initializeApp();
+
+    // # init get
+    Get.put(CartController());
+
+    // # TODO:: ใช้ครั้งเดียว
+    // ProductControlelr().setProductGroup();
 
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
 

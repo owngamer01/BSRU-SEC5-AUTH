@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myapp/controller/cart_controller.dart';
-import 'package:myapp/home/model/food_model.dart';
+import 'package:myapp/model/food_model.dart';
 import 'package:badges/badges.dart';
 
 class ItemDetailPage extends StatefulWidget {

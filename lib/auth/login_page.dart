@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/auth/controller/auth_controller.dart';
+import 'package:myapp/controller/auth_controller.dart';
 import 'package:myapp/auth/register_page.dart';
 
 class LoginPage extends StatefulWidget {

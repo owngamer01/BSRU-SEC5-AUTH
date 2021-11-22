@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:myapp/auth/controller/auth_controller.dart';
-import 'package:myapp/auth/model/user_model.dart';
+import 'package:myapp/controller/auth_controller.dart';
+import 'package:myapp/model/user_model.dart';
 
 class RegisterPage extends StatefulWidget {
 

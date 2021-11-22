@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:myapp/auth/login_page.dart';
 import 'package:myapp/auth/register_page.dart';
-import 'package:myapp/controller/cart_controller.dart';
 import 'package:myapp/home/home_page.dart';
 import 'package:myapp/home/item_detail_page.dart';
-import 'package:myapp/home/model/food_model.dart';
+import 'package:myapp/model/food_model.dart';
 import 'package:myapp/home/more_page.dart';
 import 'package:myapp/splash_screen_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // # init get
-  Get.put(CartController());
 
   runApp(const MyApp());
 }

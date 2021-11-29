@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:myapp/controller/auth_controller.dart';
 import 'package:myapp/model/food_model.dart';
+import 'package:myapp/service/order_service.dart';
 
 class CartController extends GetxController {
   
@@ -36,7 +37,7 @@ class CartController extends GetxController {
     if (!AuthController.isHasUser) return;
 
     // # ถ้ามีในตระกร้าแล้ว
-    final cartIndex = _cart.indexWhere((x) => x.id == foodItem.id);
+    final cartIndex = _cart.indexWhere((item) => item.id == foodItem.id);
 
     if(cartIndex != -1) {
 
@@ -68,5 +69,18 @@ class CartController extends GetxController {
     return _fireCarts.doc(FirebaseAuth.instance.currentUser!.uid)
       .collection(_collection)
       .doc(foodItem.id); 
+  }
+
+  Future<bool> confirmOrder() async {
+    final orderService = OrderService();
+    final result = await orderService.orderConfirm(_cart.toList());
+
+    if (!result) return false;
+
+    for (var item in _cart.toList()) {
+      removeCartItem(item);
+    }
+
+    return result;
   }
 }

@@ -13,6 +13,15 @@ class AuthController {
 
   static bool get isHasUser => FirebaseAuth.instance.currentUser != null;
 
+  Future<UserModel> getUser() async {
+    if (isHasUser) {
+      final currentUser = FirebaseAuth.instance.currentUser;
+      final snap = await users.doc(currentUser!.uid).get();
+      return UserModel.fromMap(snap.data()!);
+    }
+    throw Exception('User not found');
+  }
+
   void onLogin(String email, String password) async {
     try {
 

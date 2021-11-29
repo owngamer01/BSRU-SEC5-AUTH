@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
   late final pages = [
     const ProductPage(),
-    const CartPage()
+    CartPage()
   ];
 
   @override
